@@ -9,10 +9,7 @@
 /* Begin PBXBuildFile section */
 		EFCE562819FD0F370051C50D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562719FD0F370051C50D /* main.m */; };
 		EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562A19FD0F370051C50D /* AppDelegate.m */; };
-		EFCE562E19FD0F370051C50D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562D19FD0F370051C50D /* ViewController.m */; };
-		EFCE563119FD0F370051C50D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFCE562F19FD0F370051C50D /* Main.storyboard */; };
 		EFCE563319FD0F370051C50D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFCE563219FD0F370051C50D /* Images.xcassets */; };
-		EFCE563619FD0F370051C50D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFCE563419FD0F370051C50D /* LaunchScreen.xib */; };
 		EFCE564219FD0F370051C50D /* BlocstagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE564119FD0F370051C50D /* BlocstagramTests.m */; };
 /* End PBXBuildFile section */
 
@@ -32,11 +29,7 @@
 		EFCE562719FD0F370051C50D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EFCE562919FD0F370051C50D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EFCE562A19FD0F370051C50D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		EFCE562C19FD0F370051C50D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		EFCE562D19FD0F370051C50D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		EFCE563019FD0F370051C50D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EFCE563219FD0F370051C50D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EFCE563519FD0F370051C50D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		EFCE563B19FD0F370051C50D /* BlocstagramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocstagramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFCE564019FD0F370051C50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFCE564119FD0F370051C50D /* BlocstagramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocstagramTests.m; sourceTree = "<group>"; };
@@ -83,11 +76,7 @@
 			children = (
 				EFCE562919FD0F370051C50D /* AppDelegate.h */,
 				EFCE562A19FD0F370051C50D /* AppDelegate.m */,
-				EFCE562C19FD0F370051C50D /* ViewController.h */,
-				EFCE562D19FD0F370051C50D /* ViewController.m */,
-				EFCE562F19FD0F370051C50D /* Main.storyboard */,
 				EFCE563219FD0F370051C50D /* Images.xcassets */,
-				EFCE563419FD0F370051C50D /* LaunchScreen.xib */,
 				EFCE562519FD0F370051C50D /* Supporting Files */,
 			);
 			path = Blocstagram;
@@ -199,8 +188,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFCE563119FD0F370051C50D /* Main.storyboard in Resources */,
-				EFCE563619FD0F370051C50D /* LaunchScreen.xib in Resources */,
 				EFCE563319FD0F370051C50D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,7 +206,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFCE562E19FD0F370051C50D /* ViewController.m in Sources */,
 				EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */,
 				EFCE562819FD0F370051C50D /* main.m in Sources */,
 			);
@@ -242,25 +228,6 @@
 			targetProxy = EFCE563C19FD0F370051C50D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		EFCE562F19FD0F370051C50D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EFCE563019FD0F370051C50D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		EFCE563419FD0F370051C50D /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EFCE563519FD0F370051C50D /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EFCE564319FD0F370051C50D /* Debug */ = {
