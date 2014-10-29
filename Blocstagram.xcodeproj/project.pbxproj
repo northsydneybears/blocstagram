@@ -11,6 +11,17 @@
 		EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562A19FD0F370051C50D /* AppDelegate.m */; };
 		EFCE563319FD0F370051C50D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFCE563219FD0F370051C50D /* Images.xcassets */; };
 		EFCE564219FD0F370051C50D /* BlocstagramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE564119FD0F370051C50D /* BlocstagramTests.m */; };
+		EFCE565619FD1A370051C50D /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE564C19FD1A370051C50D /* 1.JPG */; };
+		EFCE565719FD1A370051C50D /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE564D19FD1A370051C50D /* 2.JPG */; };
+		EFCE565819FD1A370051C50D /* 3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE564E19FD1A370051C50D /* 3.JPG */; };
+		EFCE565919FD1A370051C50D /* 4.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE564F19FD1A370051C50D /* 4.JPG */; };
+		EFCE565A19FD1A370051C50D /* 5.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565019FD1A370051C50D /* 5.JPG */; };
+		EFCE565B19FD1A370051C50D /* 6.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565119FD1A370051C50D /* 6.JPG */; };
+		EFCE565C19FD1A370051C50D /* 7.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565219FD1A370051C50D /* 7.JPG */; };
+		EFCE565D19FD1A370051C50D /* 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565319FD1A370051C50D /* 8.jpg */; };
+		EFCE565E19FD1A370051C50D /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565419FD1A370051C50D /* 9.JPG */; };
+		EFCE565F19FD1A370051C50D /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565519FD1A370051C50D /* 10.JPG */; };
+		EFCE566219FD1C080051C50D /* BLCImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE566119FD1C080051C50D /* BLCImagesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +44,18 @@
 		EFCE563B19FD0F370051C50D /* BlocstagramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocstagramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFCE564019FD0F370051C50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFCE564119FD0F370051C50D /* BlocstagramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocstagramTests.m; sourceTree = "<group>"; };
+		EFCE564C19FD1A370051C50D /* 1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.JPG; sourceTree = "<group>"; };
+		EFCE564D19FD1A370051C50D /* 2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.JPG; sourceTree = "<group>"; };
+		EFCE564E19FD1A370051C50D /* 3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.JPG; sourceTree = "<group>"; };
+		EFCE564F19FD1A370051C50D /* 4.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.JPG; sourceTree = "<group>"; };
+		EFCE565019FD1A370051C50D /* 5.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.JPG; sourceTree = "<group>"; };
+		EFCE565119FD1A370051C50D /* 6.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.JPG; sourceTree = "<group>"; };
+		EFCE565219FD1A370051C50D /* 7.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.JPG; sourceTree = "<group>"; };
+		EFCE565319FD1A370051C50D /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
+		EFCE565419FD1A370051C50D /* 9.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.JPG; sourceTree = "<group>"; };
+		EFCE565519FD1A370051C50D /* 10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.JPG; sourceTree = "<group>"; };
+		EFCE566019FD1C080051C50D /* BLCImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCImagesTableViewController.h; sourceTree = "<group>"; };
+		EFCE566119FD1C080051C50D /* BLCImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCImagesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +97,12 @@
 		EFCE562419FD0F370051C50D /* Blocstagram */ = {
 			isa = PBXGroup;
 			children = (
+				EFCE566019FD1C080051C50D /* BLCImagesTableViewController.h */,
+				EFCE566119FD1C080051C50D /* BLCImagesTableViewController.m */,
 				EFCE562919FD0F370051C50D /* AppDelegate.h */,
 				EFCE562A19FD0F370051C50D /* AppDelegate.m */,
 				EFCE563219FD0F370051C50D /* Images.xcassets */,
+				EFCE564B19FD133D0051C50D /* Images */,
 				EFCE562519FD0F370051C50D /* Supporting Files */,
 			);
 			path = Blocstagram;
@@ -106,6 +132,23 @@
 				EFCE564019FD0F370051C50D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EFCE564B19FD133D0051C50D /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EFCE564C19FD1A370051C50D /* 1.JPG */,
+				EFCE564D19FD1A370051C50D /* 2.JPG */,
+				EFCE564E19FD1A370051C50D /* 3.JPG */,
+				EFCE564F19FD1A370051C50D /* 4.JPG */,
+				EFCE565019FD1A370051C50D /* 5.JPG */,
+				EFCE565119FD1A370051C50D /* 6.JPG */,
+				EFCE565219FD1A370051C50D /* 7.JPG */,
+				EFCE565319FD1A370051C50D /* 8.jpg */,
+				EFCE565419FD1A370051C50D /* 9.JPG */,
+				EFCE565519FD1A370051C50D /* 10.JPG */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,7 +231,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFCE565719FD1A370051C50D /* 2.JPG in Resources */,
+				EFCE565E19FD1A370051C50D /* 9.JPG in Resources */,
+				EFCE565919FD1A370051C50D /* 4.JPG in Resources */,
 				EFCE563319FD0F370051C50D /* Images.xcassets in Resources */,
+				EFCE565F19FD1A370051C50D /* 10.JPG in Resources */,
+				EFCE565D19FD1A370051C50D /* 8.jpg in Resources */,
+				EFCE565C19FD1A370051C50D /* 7.JPG in Resources */,
+				EFCE565B19FD1A370051C50D /* 6.JPG in Resources */,
+				EFCE565A19FD1A370051C50D /* 5.JPG in Resources */,
+				EFCE565619FD1A370051C50D /* 1.JPG in Resources */,
+				EFCE565819FD1A370051C50D /* 3.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +261,7 @@
 			files = (
 				EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */,
 				EFCE562819FD0F370051C50D /* main.m in Sources */,
+				EFCE566219FD1C080051C50D /* BLCImagesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
