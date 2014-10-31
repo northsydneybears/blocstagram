@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF126A321A02337100E2CD6F /* BLCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A311A02337100E2CD6F /* BLCUser.m */; };
+		EF126A351A02398D00E2CD6F /* BLCMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A341A02398D00E2CD6F /* BLCMedia.m */; };
+		EF126A381A023A0C00E2CD6F /* BLCComment.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A371A023A0C00E2CD6F /* BLCComment.m */; };
+		EF126A3B1A023BD300E2CD6F /* BLCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A3A1A023BD300E2CD6F /* BLCDataSource.m */; };
 		EFCE562819FD0F370051C50D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562719FD0F370051C50D /* main.m */; };
 		EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562A19FD0F370051C50D /* AppDelegate.m */; };
 		EFCE563319FD0F370051C50D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFCE563219FD0F370051C50D /* Images.xcassets */; };
@@ -35,6 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EF126A301A02337100E2CD6F /* BLCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCUser.h; sourceTree = "<group>"; };
+		EF126A311A02337100E2CD6F /* BLCUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCUser.m; sourceTree = "<group>"; };
+		EF126A331A02398D00E2CD6F /* BLCMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLCMedia.h; path = ../BLCMedia.h; sourceTree = "<group>"; };
+		EF126A341A02398D00E2CD6F /* BLCMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLCMedia.m; path = ../BLCMedia.m; sourceTree = "<group>"; };
+		EF126A361A023A0C00E2CD6F /* BLCComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCComment.h; sourceTree = "<group>"; };
+		EF126A371A023A0C00E2CD6F /* BLCComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCComment.m; sourceTree = "<group>"; };
+		EF126A391A023BD300E2CD6F /* BLCDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCDataSource.h; sourceTree = "<group>"; };
+		EF126A3A1A023BD300E2CD6F /* BLCDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDataSource.m; sourceTree = "<group>"; };
 		EFCE562219FD0F370051C50D /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFCE562619FD0F370051C50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFCE562719FD0F370051C50D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -97,6 +109,14 @@
 		EFCE562419FD0F370051C50D /* Blocstagram */ = {
 			isa = PBXGroup;
 			children = (
+				EF126A331A02398D00E2CD6F /* BLCMedia.h */,
+				EF126A341A02398D00E2CD6F /* BLCMedia.m */,
+				EF126A361A023A0C00E2CD6F /* BLCComment.h */,
+				EF126A371A023A0C00E2CD6F /* BLCComment.m */,
+				EF126A391A023BD300E2CD6F /* BLCDataSource.h */,
+				EF126A3A1A023BD300E2CD6F /* BLCDataSource.m */,
+				EF126A301A02337100E2CD6F /* BLCUser.h */,
+				EF126A311A02337100E2CD6F /* BLCUser.m */,
 				EFCE566019FD1C080051C50D /* BLCImagesTableViewController.h */,
 				EFCE566119FD1C080051C50D /* BLCImagesTableViewController.m */,
 				EFCE562919FD0F370051C50D /* AppDelegate.h */,
@@ -259,9 +279,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF126A321A02337100E2CD6F /* BLCUser.m in Sources */,
 				EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */,
 				EFCE562819FD0F370051C50D /* main.m in Sources */,
 				EFCE566219FD1C080051C50D /* BLCImagesTableViewController.m in Sources */,
+				EF126A351A02398D00E2CD6F /* BLCMedia.m in Sources */,
+				EF126A381A023A0C00E2CD6F /* BLCComment.m in Sources */,
+				EF126A3B1A023BD300E2CD6F /* BLCDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +459,7 @@
 				EFCE564719FD0F370051C50D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EFCE564819FD0F370051C50D /* Build configuration list for PBXNativeTarget "BlocstagramTests" */ = {
 			isa = XCConfigurationList;
@@ -443,6 +468,7 @@
 				EFCE564A19FD0F370051C50D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
