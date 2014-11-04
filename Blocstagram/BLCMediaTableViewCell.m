@@ -162,6 +162,12 @@ static NSParagraphStyle *paragraphStyle;
     
     // Hide the line between cells
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
+    
+    if (self.mediaItem.image
+        )
+    {
+        self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
+    }
 }
 
 - (void) setMediaItem:(BLCMedia *)mediaItem {
