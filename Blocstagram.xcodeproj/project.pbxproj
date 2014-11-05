@@ -12,6 +12,7 @@
 		EF126A381A023A0C00E2CD6F /* BLCComment.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A371A023A0C00E2CD6F /* BLCComment.m */; };
 		EF126A3B1A023BD300E2CD6F /* BLCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A3A1A023BD300E2CD6F /* BLCDataSource.m */; };
 		EF126A3E1A04D4CE00E2CD6F /* BLCMediaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A3D1A04D4CE00E2CD6F /* BLCMediaTableViewCell.m */; };
+		EF126A411A0A737C00E2CD6F /* BLCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF126A401A0A737C00E2CD6F /* BLCLoginViewController.m */; };
 		EFCE562819FD0F370051C50D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562719FD0F370051C50D /* main.m */; };
 		EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562A19FD0F370051C50D /* AppDelegate.m */; };
 		EFCE563319FD0F370051C50D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFCE563219FD0F370051C50D /* Images.xcassets */; };
@@ -50,6 +51,8 @@
 		EF126A3A1A023BD300E2CD6F /* BLCDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDataSource.m; sourceTree = "<group>"; };
 		EF126A3C1A04D4CE00E2CD6F /* BLCMediaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMediaTableViewCell.h; sourceTree = "<group>"; };
 		EF126A3D1A04D4CE00E2CD6F /* BLCMediaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMediaTableViewCell.m; sourceTree = "<group>"; };
+		EF126A3F1A0A737C00E2CD6F /* BLCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCLoginViewController.h; sourceTree = "<group>"; };
+		EF126A401A0A737C00E2CD6F /* BLCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCLoginViewController.m; sourceTree = "<group>"; };
 		EFCE562219FD0F370051C50D /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFCE562619FD0F370051C50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFCE562719FD0F370051C50D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -120,6 +123,8 @@
 				EF126A371A023A0C00E2CD6F /* BLCComment.m */,
 				EF126A391A023BD300E2CD6F /* BLCDataSource.h */,
 				EF126A3A1A023BD300E2CD6F /* BLCDataSource.m */,
+				EF126A3F1A0A737C00E2CD6F /* BLCLoginViewController.h */,
+				EF126A401A0A737C00E2CD6F /* BLCLoginViewController.m */,
 				EF126A301A02337100E2CD6F /* BLCUser.h */,
 				EF126A311A02337100E2CD6F /* BLCUser.m */,
 				EFCE566019FD1C080051C50D /* BLCImagesTableViewController.h */,
@@ -292,6 +297,7 @@
 				EF126A381A023A0C00E2CD6F /* BLCComment.m in Sources */,
 				EF126A3E1A04D4CE00E2CD6F /* BLCMediaTableViewCell.m in Sources */,
 				EF126A3B1A023BD300E2CD6F /* BLCDataSource.m in Sources */,
+				EF126A411A0A737C00E2CD6F /* BLCLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
