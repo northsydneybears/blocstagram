@@ -27,14 +27,16 @@
 @implementation BLCDataSource
 
 - (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler {
+    
     self.thereAreNoMoreOlderMessages = NO;
-    if (self.isRefreshing == NO) {
+    if (self.isRefreshing == NO && self.mediaItems.count != 0) {
         self.isRefreshing = YES;
         
         NSString *minID = [[self.mediaItems firstObject] idNumber];
         NSDictionary *parameters = @{@"min_id": minID};
         
-        [self populateDataWithParameters:parameters completionHandler:^(NSError *error) {
+        
+            [self populateDataWithParameters:parameters completionHandler:^(NSError *error) {
             self.isRefreshing = NO;
             
             if (completionHandler) {
