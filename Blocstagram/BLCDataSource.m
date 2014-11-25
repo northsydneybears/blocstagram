@@ -99,6 +99,11 @@
                         [self willChangeValueForKey:@"mediaItems"];
                         self.mediaItems = mutableMediaItems;
                         [self didChangeValueForKey:@"mediaItems"];
+                        
+                        for (BLCMedia* item in self.mediaItems)
+                        {
+                            [self downloadImageForMediaItem:item];
+                        }
                     } else {
                         [self populateDataWithParameters:nil completionHandler:nil];
                     }
