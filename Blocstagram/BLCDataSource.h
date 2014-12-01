@@ -21,7 +21,8 @@ typedef void (^BLCNewItemCompletionBlock)(NSError *error);
 
 -(void) deleteMediaItem:(BLCMedia *)item;
 
--(void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
+- (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
+- (void) requestOldItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
 
 +(NSString *) instagramClientID;
 

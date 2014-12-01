@@ -32,6 +32,8 @@
 }
 
 - (void) loadView {
+	[super loadView];
+	
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(buttonTapped:)];
     self.navigationItem.rightBarButtonItem = shareButton;
 }

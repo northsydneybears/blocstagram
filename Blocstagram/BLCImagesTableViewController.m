@@ -40,6 +40,7 @@
     [self.refreshControl addTarget:self action:@selector(refreshControlDidFire:) forControlEvents:UIControlEventValueChanged];
     
     [self.tableView registerClass:[BLCMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
+	
 }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -198,6 +199,29 @@
     BLCMediaFullScreenAnimator *animator = [BLCMediaFullScreenAnimator new];
     animator.cellImageView = self.lastTappedImageView;
     return animator;
+}
+
+- (void) infiniteScrollIfNecessary {
+	NSIndexPath *bottomIndexPath = [[self.tableView indexPathsForVisibleRows] lastObject];
+	
+	// did we get to the bottom?
+	if (bottomIndexPath && bottomIndexPath.row == [BLCDataSource sharedInstance].mediaItems.count - 1) {
+		// The very last cell is on screen
+		[[BLCDataSource sharedInstance] requestOldItemsWithCompletionHandler:nil];
+	}
+}
+
+#pragma mark - UIScrollViewDelegate
+
+/*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+	[self infiniteScrollIfNecessary];
+}
+*/
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+	NSLog(@"scroll fired");
+	[self infiniteScrollIfNecessary];
 }
 
 /* Override to support editing the table view.

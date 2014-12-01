@@ -107,7 +107,14 @@
                     } else {
                         [self populateDataWithParameters:nil completionHandler:nil];
                     }
-                });
+
+							
+										// check for new images
+										NSString *minID = [[self.mediaItems firstObject] idNumber];
+										NSDictionary *parameters = @{@"min_id": minID};
+										
+										[self populateDataWithParameters:parameters completionHandler:^(NSError *error) {}];
+								});
             });
         }
     }
