@@ -15,7 +15,7 @@
 @property (nonatomic, strong) BLCMedia *media;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
-@property (nonatomic, strong) UIBarButtonItem *shareButton;
+@property (nonatomic, strong) UIButton *shareButton;
 
 @end
 
@@ -23,7 +23,7 @@
 
 - (instancetype) initWithMedia:(BLCMedia *)media {
     self = [super init];
-    
+	
     if (self) {
         self.media = media;
     }
@@ -33,9 +33,6 @@
 
 - (void) loadView {
 	[super loadView];
-	
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(buttonTapped:)];
-    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
 - (void) viewDidLoad {
@@ -64,6 +61,17 @@
     
     [self.scrollView addGestureRecognizer:self.tap];
     [self.scrollView addGestureRecognizer:self.doubleTap];
+	
+	
+		UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		[shareButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+		[shareButton setTitle:@"Share" forState:UIControlStateNormal];
+		[shareButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+		shareButton.frame = CGRectMake(280.0, 10.0, 74.0, 46.0);
+		shareButton.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin |
+               UIViewAutoresizingFlexibleBottomMargin);
+	
+		[self.view addSubview:shareButton];
 }
 
 - (void) viewWillLayoutSubviews {

@@ -162,6 +162,7 @@
     
     fullScreenVC.transitioningDelegate = self;
     fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+		
     
     [self presentViewController:fullScreenVC animated:YES completion:nil];
 }
