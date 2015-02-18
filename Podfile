@@ -12,3 +12,4 @@ target 'BlocstagramTests' do
 end
 
 pod 'UICKeyChainStore'
+pod 'AFNetworking'

@@ -19,10 +19,10 @@ typedef void (^BLCNewItemCompletionBlock)(NSError *error);
 @property (nonatomic, strong, readonly) NSMutableArray *mediaItems;
 @property (nonatomic, strong, readonly) NSString *accessToken;
 
--(void) deleteMediaItem:(BLCMedia *)item;
-
+- (void) deleteMediaItem:(BLCMedia *)item;
 - (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
 - (void) requestOldItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
+- (void) downloadImageForMediaItem:(BLCMedia *)mediaItem;
 
 +(NSString *) instagramClientID;
 

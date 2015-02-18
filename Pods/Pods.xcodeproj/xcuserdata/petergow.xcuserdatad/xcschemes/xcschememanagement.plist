@@ -4,12 +4,27 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Blocstagram-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Blocstagram-UICKeyChainStore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-Blocstagram.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-BlocstagramTests-AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,32 +52,47 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>113B1E4CCD9C478B523CAE66</key>
+		<key>15847D48751EEEF21D7B50C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2047680FB1105F4084D00AFA</key>
+		<key>1AB10D032048457652BFF71E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>82BE5833BC9B657FD169DD38</key>
+		<key>407719596C02577CE981B671</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F4B481C9FD9DC360D364055</key>
+		<key>94E282A5482DE9CD912FFFAC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A8693F8CB37CCD530C61EA7E</key>
+		<key>9763A61E50C61F042FAA0294</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D868B1BE8BB46562D985F59C</key>
+		<key>9D07C354A2FFAEBA761C4614</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A589802C5C816FFA84969AF3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A7038EB4EEC938AE4B8301C6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB7CAF5D0A44292B27B30E24</key>
 		<dict>
 			<key>primary</key>
 			<true/>

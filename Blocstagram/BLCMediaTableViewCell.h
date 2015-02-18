@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLCDataSource.h"
 
-@class BLCMedia, BLCMediaTableViewCell;
+@class BLCMedia, BLCMediaTableViewCell, BLCDataSource;
 
 @protocol BLCMediaTableViewCellDelegate <NSObject>
 

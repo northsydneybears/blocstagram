@@ -10,6 +10,8 @@
 #import "BLCMedia.h"
 #import "BLCComment.h"
 #import "BLCUser.h"
+#import "BLCDataSource.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface BLCMediaTableViewCell () <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIImageView *mediaImageView;
@@ -20,6 +22,8 @@
 @property (nonatomic, strong) NSLayoutConstraint *commentLabelHeightConstraint;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *retryDownloadTapGestureRecognizer;
+@property (nonatomic, strong) AFHTTPRequestOperationManager *instagramOperationManager;
 @end
 
 static UIFont *lightFont;
@@ -66,13 +70,20 @@ static NSParagraphStyle *paragraphStyle;
         // Initialization code
         self.mediaImageView = [[UIImageView alloc] init];
         self.mediaImageView.userInteractionEnabled = YES;
+			
         self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
         self.tapGestureRecognizer.delegate = self;
         [self.mediaImageView addGestureRecognizer:self.tapGestureRecognizer];
+				[self.tapGestureRecognizer requireGestureRecognizerToFail:self.retryDownloadTapGestureRecognizer];
         
         self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
         self.longPressGestureRecognizer.delegate = self;
         [self.mediaImageView addGestureRecognizer:self.longPressGestureRecognizer];
+			
+			self.retryDownloadTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(retryTapFired:)];
+			self.retryDownloadTapGestureRecognizer.numberOfTapsRequired = 2;
+			self.retryDownloadTapGestureRecognizer.delegate = self;
+			[self.mediaImageView addGestureRecognizer:self.retryDownloadTapGestureRecognizer];
         
         self.usernameAndCaptionLabel = [[UILabel alloc] init];
         self.commentLabel = [[UILabel alloc] init];
@@ -227,6 +238,17 @@ static NSParagraphStyle *paragraphStyle;
         [self.delegate cell:self didLongPressImageView:self.mediaImageView];
     }
 }
+
+- (void) retryTapFired:(UITapGestureRecognizer *)sender {
+	if (sender.state == UIGestureRecognizerStateRecognized) {
+		//[self.delegate cell:self didTapImageView:self.mediaImageView];
+		//need code here to retry image download
+		//BLCDataSource *retryImage = [[BLCDataSource alloc] init];
+		//BLCMedia *retryMediaItem = [[BLCMedia alloc] init];
+		[[BLCDataSource sharedInstance] downloadImageForMediaItem:self.mediaItem];
+		}
+}
+
 
 #pragma mark - UIGestureRecognizerDelegate
 
