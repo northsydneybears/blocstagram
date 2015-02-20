@@ -2,14 +2,13 @@
 //  BLCMediaTableViewCell.h
 //  Blocstagram
 //
-//  Created by Peter Gow on 1/11/2014.
-//  Copyright (c) 2014 Peter Gow. All rights reserved.
+//  Created by Aaron on 6/23/14.
+//  Copyright (c) 2014 Bloc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "BLCDataSource.h"
 
-@class BLCMedia, BLCMediaTableViewCell, BLCDataSource;
+@class BLCMedia, BLCMediaTableViewCell;
 
 @protocol BLCMediaTableViewCellDelegate <NSObject>
 
@@ -23,6 +22,6 @@
 @property (nonatomic, strong) BLCMedia *mediaItem;
 @property (nonatomic, weak) id <BLCMediaTableViewCellDelegate> delegate;
 
-+(CGFloat) heightForMediaItem:(BLCMedia *)mediaItem width:(CGFloat)width;
++ (CGFloat) heightForMediaItem:(BLCMedia *)mediaItem width:(CGFloat)width;
 
 @end

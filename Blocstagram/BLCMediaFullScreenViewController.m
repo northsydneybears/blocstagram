@@ -67,7 +67,7 @@
 		[shareButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[shareButton setTitle:@"Share" forState:UIControlStateNormal];
 		[shareButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-		shareButton.frame = CGRectMake(280.0, 10.0, 74.0, 46.0);
+		shareButton.frame = CGRectMake(200.0, 10.0, 74.0, 46.0);
 		shareButton.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin |
                UIViewAutoresizingFlexibleBottomMargin);
 	

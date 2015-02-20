@@ -2,8 +2,8 @@
 //  BLCImagesTableViewController.m
 //  Blocstagram
 //
-//  Created by Peter Gow on 26/10/2014.
-//  Copyright (c) 2014 Peter Gow. All rights reserved.
+//  Created by Aaron Brager on 6/22/14.
+//  Copyright (c) 2014 Bloc. All rights reserved.
 //
 
 #import "BLCImagesTableViewController.h"
@@ -18,45 +18,60 @@
 @interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
-@property (nonatomic, strong) UIActivityViewController *activityVC;
 
 @end
 
 @implementation BLCImagesTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithStyle:(UITableViewStyle)style
+{
     self = [super initWithStyle:style];
     if (self) {
+        // Custom initialization
     }
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     [[BLCDataSource sharedInstance] addObserver:self forKeyPath:@"mediaItems" options:0 context:nil];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshControlDidFire:) forControlEvents:UIControlEventValueChanged];
-    
+
     [self.tableView registerClass:[BLCMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
-	
-}
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-- (void) refreshControlDidFire:(UIRefreshControl *) sender {
-    [[BLCDataSource sharedInstance] requestNewItemsWithCompletionHandler:^(NSError *error) {
-        [sender endRefreshing];
-    }];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void) dealloc {
+    [[BLCDataSource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [BLCDataSource sharedInstance].mediaItems.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BLCMediaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
+    cell.delegate = self;
+    cell.mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
+    return cell;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BLCMedia *item = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
+    return [BLCMediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -67,6 +82,52 @@
         return 150;
     }
 }
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        BLCMedia *item = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
+        [[BLCDataSource sharedInstance] deleteMediaItem:item];
+    }
+}
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark - Key Value Observing
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == [BLCDataSource sharedInstance] && [keyPath isEqualToString:@"mediaItems"]) {
@@ -109,48 +170,27 @@
     }
 }
 
-- (void) dealloc
-{
-    [[BLCDataSource sharedInstance] removeObserver:self forKeyPath:@"mediaItems"];
+#pragma mark - Getting More Data
+
+- (void) refreshControlDidFire:(UIRefreshControl *) sender {
+    [[BLCDataSource sharedInstance] requestNewItemsWithCompletionHandler:^(NSError *error) {
+        [sender endRefreshing];
+    }];
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        BLCMedia *item = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
-        [[BLCDataSource sharedInstance] deleteMediaItem:item];
+- (void) infiniteScrollIfNeccessary {
+    NSIndexPath *bottomIndexPath = [[self.tableView indexPathsForVisibleRows] lastObject];
+    
+    if (bottomIndexPath && bottomIndexPath.row == [BLCDataSource sharedInstance].mediaItems.count - 1) {
+        // The very last cell is on screen
+        [[BLCDataSource sharedInstance] requestOldItemsWithCompletionHandler:nil];
     }
 }
 
-#pragma mark - Table view data source
+#pragma mark - UIScrollViewDelegate
 
-- (NSMutableArray *)items {
-    return [BLCDataSource sharedInstance].mediaItems;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self items].count;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BLCMediaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
-    cell.delegate = self;
-    cell.mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
-    
-    return cell;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BLCMedia *item = [self items][indexPath.row];
-    return [BLCMediaTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];
-}
-
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self infiniteScrollIfNeccessary];
 }
 
 #pragma mark - BLCMediaTableViewCellDelegate
@@ -159,10 +199,9 @@
     self.lastTappedImageView = imageView;
     
     BLCMediaFullScreenViewController *fullScreenVC = [[BLCMediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
-    
+
     fullScreenVC.transitioningDelegate = self;
     fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
-		
     
     [self presentViewController:fullScreenVC animated:YES completion:nil];
 }
@@ -188,7 +227,7 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
                                                                   presentingController:(UIViewController *)presenting
-                                                                      sourceController:(UIViewController *)source {
+                                                                        sourceController:(UIViewController *)source {
     
     BLCMediaFullScreenAnimator *animator = [BLCMediaFullScreenAnimator new];
     animator.presenting = YES;
@@ -202,64 +241,5 @@
     return animator;
 }
 
-- (void) infiniteScrollIfNecessary {
-	NSIndexPath *bottomIndexPath = [[self.tableView indexPathsForVisibleRows] lastObject];
-	
-	// did we get to the bottom?
-	if (bottomIndexPath && bottomIndexPath.row == [BLCDataSource sharedInstance].mediaItems.count - 1) {
-		// The very last cell is on screen
-		[[BLCDataSource sharedInstance] requestOldItemsWithCompletionHandler:nil];
-	}
-}
-
-#pragma mark - UIScrollViewDelegate
-
-/*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
-	[self infiniteScrollIfNecessary];
-}
-*/
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-	NSLog(@"scroll fired");
-	[self infiniteScrollIfNecessary];
-}
-
-/* Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [[self items] removeObjectAtIndex:[indexPath row]];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        NSLog(@"Images remaining in array: %lu", (unsigned long)[self items].count);
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

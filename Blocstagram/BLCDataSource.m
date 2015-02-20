@@ -23,6 +23,7 @@
 @property (nonatomic, assign) BOOL isRefreshing;
 @property (nonatomic, assign) BOOL isLoadingOlderItems;
 @property (nonatomic, assign) BOOL thereAreNoMoreOlderMessages;
+
 @property (nonatomic, strong) AFHTTPRequestOperationManager *instagramOperationManager;
 
 @end
@@ -85,17 +86,17 @@
     self = [super init];
     
     if (self) {
-				NSURL *baseURL = [NSURL URLWithString:@"http://api.instagram.com/v1/"];
-				self.instagramOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
-			
-				AFJSONResponseSerializer *jsonSerializer = [AFJSONResponseSerializer serializer];
-			
-				AFImageResponseSerializer *imageSerializer = [AFImageResponseSerializer serializer];
-				imageSerializer.imageScale = 1.0;
-			
-				AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:@[jsonSerializer, imageSerializer]];
-				self.instagramOperationManager.responseSerializer = serializer;
-			
+        NSURL *baseURL = [NSURL URLWithString:@"https://api.instagram.com/v1/"];
+        self.instagramOperationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:baseURL];
+        
+        AFJSONResponseSerializer *jsonSerializer = [AFJSONResponseSerializer serializer];
+        
+        AFImageResponseSerializer *imageSerializer = [AFImageResponseSerializer serializer];
+        imageSerializer.imageScale = 1.0;
+        
+        AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:@[jsonSerializer, imageSerializer]];
+        self.instagramOperationManager.responseSerializer = serializer;
+        
         self.accessToken = [UICKeyChainStore stringForKey:@"access token"];
         
         if (!self.accessToken) {
@@ -124,12 +125,7 @@
 							
 										// check for new images
 										NSString *minID = [[self.mediaItems firstObject] idNumber];
-									NSDictionary *parameters;
-										if (minID) {
-											parameters = @{@"min_id": minID};
-											} else {
-												parameters = nil;
-											}
+										NSDictionary *parameters = @{@"min_id": minID};
 										
 										[self populateDataWithParameters:parameters completionHandler:^(NSError *error) {}];
 								});
@@ -184,32 +180,31 @@
 - (void) populateDataWithParameters:(NSDictionary *)parameters completionHandler:(BLCNewItemCompletionBlock)completionHandler {
     if (self.accessToken) {
         // only try to get the data if there's an access token
+        NSMutableDictionary *mutableParameters = [@{@"access_token": self.accessToken} mutableCopy];
         
-			NSMutableDictionary *mutableParameters = [@{@"access_token": self.accessToken} mutableCopy];
-			
-			[mutableParameters addEntriesFromDictionary:parameters];
-			
-			[self.instagramOperationManager GET:@"users/self/feed"
-															 parameters:mutableParameters
-																	success:^(AFHTTPRequestOperation *operation, id responseObject) {
-																		if ([responseObject isKindOfClass:[NSDictionary class]]) {
-																			[self parseDataFromFeedDictionary:responseObject fromRequestWithParameters:parameters];
-																			
-																			if (completionHandler) {
-																				completionHandler(nil);
-																			}
-																		}
-																	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-																		if (completionHandler) {
-																			completionHandler(error);
-																		}
-																	}];
+        [mutableParameters addEntriesFromDictionary:parameters];
+        
+        [self.instagramOperationManager GET:@"users/self/feed"
+                                 parameters:mutableParameters
+                                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                                            [self parseDataFromFeedDictionary:responseObject fromRequestWithParameters:parameters];
+                                            
+                                            if (completionHandler) {
+                                                completionHandler(nil);
+                                            }
+                                        }
+                                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                        if (completionHandler) {
+                                            completionHandler(error);
+                                        }
+                                    }];
     }
 }
 
 - (void) parseDataFromFeedDictionary:(NSDictionary *) feedDictionary fromRequestWithParameters:(NSDictionary *)parameters {
     NSArray *mediaArray = feedDictionary[@"data"];
-	
+    
     NSMutableArray *tmpMediaItems = [NSMutableArray array];
     
     for (NSDictionary *mediaDictionary in mediaArray) {
@@ -267,18 +262,18 @@
 
 - (void) downloadImageForMediaItem:(BLCMedia *)mediaItem {
     if (mediaItem.mediaURL && !mediaItem.image) {
-			[self.instagramOperationManager GET:mediaItem.mediaURL.absoluteString
-															 parameters:nil
-																	success:^(AFHTTPRequestOperation *operation, id responseObject) {
-																		if ([responseObject isKindOfClass:[UIImage class]]) {
-																			mediaItem.image = responseObject;
-																			NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
-																			NSUInteger index = [mutableArrayWithKVO indexOfObject:mediaItem];
-																			[mutableArrayWithKVO replaceObjectAtIndex:index withObject:mediaItem];
-																		}
-																	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-																		NSLog(@"Error downloading image: %@", error);
-																	}];
+        [self.instagramOperationManager GET:mediaItem.mediaURL.absoluteString
+                                 parameters:nil
+                                    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                        if ([responseObject isKindOfClass:[UIImage class]]) {
+                                            mediaItem.image = responseObject;
+                                            NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
+                                            NSUInteger index = [mutableArrayWithKVO indexOfObject:mediaItem];
+                                            [mutableArrayWithKVO replaceObjectAtIndex:index withObject:mediaItem];
+                                        }
+                                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                        NSLog(@"Error downloading image: %@", error);
+                                    }];
     }
 }
 

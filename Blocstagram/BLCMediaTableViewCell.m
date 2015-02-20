@@ -2,8 +2,8 @@
 //  BLCMediaTableViewCell.m
 //  Blocstagram
 //
-//  Created by Peter Gow on 1/11/2014.
-//  Copyright (c) 2014 Peter Gow. All rights reserved.
+//  Created by Aaron on 6/23/14.
+//  Copyright (c) 2014 Bloc. All rights reserved.
 //
 
 #import "BLCMediaTableViewCell.h"
@@ -14,38 +14,31 @@
 #import <AFNetworking/AFNetworking.h>
 
 @interface BLCMediaTableViewCell () <UIGestureRecognizerDelegate>
+
 @property (nonatomic, strong) UIImageView *mediaImageView;
 @property (nonatomic, strong) UILabel *usernameAndCaptionLabel;
 @property (nonatomic, strong) UILabel *commentLabel;
+
 @property (nonatomic, strong) NSLayoutConstraint *imageHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *usernameAndCaptionLabelHeightConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *commentLabelHeightConstraint;
+
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer *retryDownloadTapGestureRecognizer;
-@property (nonatomic, strong) AFHTTPRequestOperationManager *instagramOperationManager;
+
 @end
 
 static UIFont *lightFont;
 static UIFont *boldFont;
+
 static UIColor *usernameLabelGray;
 static UIColor *commentLabelGray;
 static UIColor *linkColor;
+
 static NSParagraphStyle *paragraphStyle;
 
 @implementation BLCMediaTableViewCell
-
-
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:NO animated:animated];
-    
-    // Configure the view for the selected state
-}
 
 + (void)load {
     lightFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:11];
@@ -63,31 +56,47 @@ static NSParagraphStyle *paragraphStyle;
     paragraphStyle = mutableParagraphStyle;
 }
 
++ (CGFloat) heightForMediaItem:(BLCMedia *)mediaItem width:(CGFloat)width {
+    // Make a cell
+    BLCMediaTableViewCell *layoutCell = [[BLCMediaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layoutCell"];
+    layoutCell.mediaItem = mediaItem;
+    
+    layoutCell.frame = CGRectMake(0, 0, width, CGRectGetHeight(layoutCell.frame));
+    
+    [layoutCell setNeedsLayout];
+    [layoutCell layoutIfNeeded];
+    
+    // Get the actual height required for the cell
+    return CGRectGetMaxY(layoutCell.commentLabel.frame);
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
         self.mediaImageView = [[UIImageView alloc] init];
         self.mediaImageView.userInteractionEnabled = YES;
-			
+        
         self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
         self.tapGestureRecognizer.delegate = self;
         [self.mediaImageView addGestureRecognizer:self.tapGestureRecognizer];
-				[self.tapGestureRecognizer requireGestureRecognizerToFail:self.retryDownloadTapGestureRecognizer];
         
         self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
         self.longPressGestureRecognizer.delegate = self;
         [self.mediaImageView addGestureRecognizer:self.longPressGestureRecognizer];
 			
-			self.retryDownloadTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(retryTapFired:)];
-			self.retryDownloadTapGestureRecognizer.numberOfTapsRequired = 2;
-			self.retryDownloadTapGestureRecognizer.delegate = self;
-			[self.mediaImageView addGestureRecognizer:self.retryDownloadTapGestureRecognizer];
+				self.retryDownloadTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(retryTapFired:)];
+				self.retryDownloadTapGestureRecognizer.numberOfTapsRequired = 2;
+				self.retryDownloadTapGestureRecognizer.delegate	= self;
+				[self.mediaImageView addGestureRecognizer:self.retryDownloadTapGestureRecognizer];
         
         self.usernameAndCaptionLabel = [[UILabel alloc] init];
+        self.usernameAndCaptionLabel.numberOfLines = 0;
+        self.usernameAndCaptionLabel.backgroundColor = usernameLabelGray;
+        
         self.commentLabel = [[UILabel alloc] init];
         self.commentLabel.numberOfLines = 0;
+        self.commentLabel.backgroundColor = commentLabelGray;
         
         for (UIView *view in @[self.mediaImageView, self.usernameAndCaptionLabel, self.commentLabel]) {
             [self.contentView addSubview:view];
@@ -95,11 +104,11 @@ static NSParagraphStyle *paragraphStyle;
         }
         
         NSDictionary *viewDictionary = NSDictionaryOfVariableBindings(_mediaImageView, _usernameAndCaptionLabel, _commentLabel);
-        
+
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mediaImageView]|" options:kNilOptions metrics:nil views:viewDictionary]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_usernameAndCaptionLabel]|" options:kNilOptions metrics:nil views:viewDictionary]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_commentLabel]|" options:kNilOptions metrics:nil views:viewDictionary]];
-        
+
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mediaImageView][_usernameAndCaptionLabel][_commentLabel]"
                                                                                  options:kNilOptions
                                                                                  metrics:nil
@@ -121,7 +130,7 @@ static NSParagraphStyle *paragraphStyle;
                                                                                     attribute:NSLayoutAttributeNotAnAttribute
                                                                                    multiplier:1
                                                                                      constant:100];
-        
+
         self.commentLabelHeightConstraint = [NSLayoutConstraint constraintWithItem:_commentLabel
                                                                          attribute:NSLayoutAttributeHeight
                                                                          relatedBy:NSLayoutRelationEqual
@@ -134,6 +143,76 @@ static NSParagraphStyle *paragraphStyle;
     }
     return self;
 }
+
+- (void)awakeFromNib
+{
+    // Initialization code
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:NO animated:animated];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:NO animated:animated];
+
+    // Configure the view for the selected state
+}
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    
+    // Before layout, calculate the intrinsic size of the labels (the size they "want" to be), and add 20 to the height for some vertical padding.
+    CGSize maxSize = CGSizeMake(CGRectGetWidth(self.bounds), CGFLOAT_MAX);
+    CGSize usernameLabelSize = [self.usernameAndCaptionLabel sizeThatFits:maxSize];
+    CGSize commentLabelSize = [self.commentLabel sizeThatFits:maxSize];
+    
+    self.usernameAndCaptionLabelHeightConstraint.constant = usernameLabelSize.height + 20;
+    self.commentLabelHeightConstraint.constant = commentLabelSize.height + 20;
+
+    if (_mediaItem.image) {
+        self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
+    } else {
+        self.imageHeightConstraint.constant = 0;
+    }
+
+    // Hide the line between cells
+    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
+}
+
+- (void) setMediaItem:(BLCMedia *)mediaItem {
+    _mediaItem = mediaItem;
+    self.mediaImageView.image = _mediaItem.image;
+    self.usernameAndCaptionLabel.attributedText = [self usernameAndCaptionString];
+    self.commentLabel.attributedText = [self commentString];
+}
+
+#pragma mark - Image View
+
+- (void) tapFired:(UITapGestureRecognizer *)sender {
+    [self.delegate cell:self didTapImageView:self.mediaImageView];
+}
+
+- (void) longPressFired:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self.delegate cell:self didLongPressImageView:self.mediaImageView];
+    }
+}
+
+- (void) retryTapFired:(UITapGestureRecognizer *)sender {
+		if (sender.state == UIGestureRecognizerStateRecognized) {
+			[[BLCDataSource sharedInstance] downloadImageForMediaItem:self.mediaItem];
+		}
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return self.isEditing == NO;
+}
+
+#pragma mark - Attributed Strings
 
 - (NSAttributedString *) usernameAndCaptionString {
     CGFloat usernameFontSize = 15;
@@ -155,7 +234,7 @@ static NSParagraphStyle *paragraphStyle;
     NSMutableAttributedString *commentString = [[NSMutableAttributedString alloc] init];
     
     for (BLCComment *comment in self.mediaItem.comments) {
-        // Make a string that says "username comment text" followed by a line break
+        // Make a string that says "username comment text" followed by 2 line breaks
         NSString *baseString = [NSString stringWithFormat:@"%@ %@\n", comment.from.userName, comment.text];
         
         // Make an attributed string, with the "username" bold
@@ -165,95 +244,11 @@ static NSParagraphStyle *paragraphStyle;
         NSRange usernameRange = [baseString rangeOfString:comment.from.userName];
         [oneCommentString addAttribute:NSFontAttributeName value:boldFont range:usernameRange];
         [oneCommentString addAttribute:NSForegroundColorAttributeName value:linkColor range:usernameRange];
-        
+
         [commentString appendAttributedString:oneCommentString];
     }
     
     return commentString;
-}
-
-- (void) layoutSubviews {
-    [super layoutSubviews];
-    
-    // Before layout, calculate the intrinsic size of the labels (the size they "want" to be), and add 20 to the height for some vertical padding.
-    CGSize maxSize = CGSizeMake(CGRectGetWidth(self.bounds), CGFLOAT_MAX);
-    CGSize usernameLabelSize = [self.usernameAndCaptionLabel sizeThatFits:maxSize];
-    CGSize commentLabelSize = [self.commentLabel sizeThatFits:maxSize];
-    
-    self.usernameAndCaptionLabelHeightConstraint.constant = usernameLabelSize.height + 20;
-    self.commentLabelHeightConstraint.constant = commentLabelSize.height + 20;
-    
-    if (_mediaItem.image) {
-        self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
-    } else {
-        self.imageHeightConstraint.constant = 0;
-    }
-    
-    // Hide the line between cells
-    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
-    
-    if (self.mediaItem.image
-        )
-    {
-        self.imageHeightConstraint.constant = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.contentView.bounds);
-    }
-}
-
-- (void) setMediaItem:(BLCMedia *)mediaItem {
-    _mediaItem = mediaItem;
-    self.mediaImageView.image = _mediaItem.image;
-    self.usernameAndCaptionLabel.attributedText = [self usernameAndCaptionString];
-    self.commentLabel.attributedText = [self commentString];
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:NO animated:animated];
-}
-
-+ (CGFloat) heightForMediaItem:(BLCMedia *)mediaItem width:(CGFloat)width {
-    // Make a cell
-    BLCMediaTableViewCell *layoutCell = [[BLCMediaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layoutCell"];
-    
-    // Give it the media item
-    layoutCell.mediaItem = mediaItem;
-    
-    // Make it adjust the image view and labels
-    layoutCell.frame = CGRectMake(0, 0, width, CGRectGetHeight(layoutCell.frame));
-    
-    [layoutCell setNeedsLayout];
-    [layoutCell layoutIfNeeded];
-    
-    // Get the actual height required for the cell
-    return CGRectGetMaxY(layoutCell.commentLabel.frame);
-}
-
-#pragma mark - Image View
-
-- (void) tapFired:(UITapGestureRecognizer *)sender {
-    [self.delegate cell:self didTapImageView:self.mediaImageView];
-}
-
-- (void) longPressFired:(UILongPressGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        [self.delegate cell:self didLongPressImageView:self.mediaImageView];
-    }
-}
-
-- (void) retryTapFired:(UITapGestureRecognizer *)sender {
-	if (sender.state == UIGestureRecognizerStateRecognized) {
-		//[self.delegate cell:self didTapImageView:self.mediaImageView];
-		//need code here to retry image download
-		//BLCDataSource *retryImage = [[BLCDataSource alloc] init];
-		//BLCMedia *retryMediaItem = [[BLCMedia alloc] init];
-		[[BLCDataSource sharedInstance] downloadImageForMediaItem:self.mediaItem];
-		}
-}
-
-
-#pragma mark - UIGestureRecognizerDelegate
-
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    return self.isEditing == NO;
 }
 
 @end
