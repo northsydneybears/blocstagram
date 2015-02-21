@@ -9,6 +9,8 @@
 #import "BLCMediaFullScreenViewController.h"
 #import "BLCMedia.h"
 #import "BLCImagesTableViewController.h"
+#import "BLCDataSource.h"
+#import "BLCMediaTableViewCell.h"
 
 @interface BLCMediaFullScreenViewController () <UIScrollViewDelegate>
 
@@ -159,6 +161,12 @@
     
     [self presentViewController:activityVC animated:YES completion:nil];
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+	//no idea what to write here, something about presenting the new content
+}
+
+
 
 /*
 #pragma mark - Navigation

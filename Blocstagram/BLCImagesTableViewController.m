@@ -18,6 +18,9 @@
 @interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
+@property (nonatomic, strong) BLCMedia *mediaItem;
+@property (nonatomic, readonly, getter=isDecelerating) BOOL decelerating;
+@property(nonatomic, readonly, getter=isDragging) BOOL dragging;
 
 @end
 
@@ -67,6 +70,13 @@
     cell.delegate = self;
     cell.mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	BLCMedia *mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
+	if (mediaItem.downloadState == BLCMediaDownloadStateNeedsImage) {
+		[[BLCDataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+	}
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -191,6 +201,15 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self infiniteScrollIfNeccessary];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+	scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+	if (scrollView.isDecelerating) {
+		[[BLCDataSource sharedInstance] downloadImageForMediaItem:self.mediaItem];
+	} else if (scrollView.isDragging) {
+		self.mediaItem.downloadState = BLCMediaDownloadStateDownloadInProgress;
+	}
 }
 
 #pragma mark - BLCMediaTableViewCellDelegate
