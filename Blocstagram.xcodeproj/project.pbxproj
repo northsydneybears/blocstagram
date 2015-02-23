@@ -31,6 +31,8 @@
 		EFCE565E19FD1A370051C50D /* 9.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565419FD1A370051C50D /* 9.JPG */; };
 		EFCE565F19FD1A370051C50D /* 10.JPG in Resources */ = {isa = PBXBuildFile; fileRef = EFCE565519FD1A370051C50D /* 10.JPG */; };
 		EFCE566219FD1C080051C50D /* BLCImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE566119FD1C080051C50D /* BLCImagesTableViewController.m */; };
+		EFF982F51A981DE700218699 /* BLCCircleSpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF982F41A981DE700218699 /* BLCCircleSpinnerView.m */; };
+		EFF982F81A9822CD00218699 /* BLCLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF982F71A9822CD00218699 /* BLCLikeButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,10 @@
 		EFCE565519FD1A370051C50D /* 10.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.JPG; sourceTree = "<group>"; };
 		EFCE566019FD1C080051C50D /* BLCImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCImagesTableViewController.h; sourceTree = "<group>"; };
 		EFCE566119FD1C080051C50D /* BLCImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCImagesTableViewController.m; sourceTree = "<group>"; };
+		EFF982F31A981DE700218699 /* BLCCircleSpinnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCCircleSpinnerView.h; sourceTree = "<group>"; };
+		EFF982F41A981DE700218699 /* BLCCircleSpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCCircleSpinnerView.m; sourceTree = "<group>"; };
+		EFF982F61A9822CD00218699 /* BLCLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCLikeButton.h; sourceTree = "<group>"; };
+		EFF982F71A9822CD00218699 /* BLCLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCLikeButton.m; sourceTree = "<group>"; };
 		F2A767387D5CCEBE0AD10D03 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +169,10 @@
 				EFCE566119FD1C080051C50D /* BLCImagesTableViewController.m */,
 				EF6440C61A2456D5002BDAC7 /* BLCMediaFullScreenAnimator.h */,
 				EF6440C71A2456D5002BDAC7 /* BLCMediaFullScreenAnimator.m */,
+				EFF982F31A981DE700218699 /* BLCCircleSpinnerView.h */,
+				EFF982F41A981DE700218699 /* BLCCircleSpinnerView.m */,
+				EFF982F61A9822CD00218699 /* BLCLikeButton.h */,
+				EFF982F71A9822CD00218699 /* BLCLikeButton.m */,
 				EFCE562919FD0F370051C50D /* AppDelegate.h */,
 				EFCE562A19FD0F370051C50D /* AppDelegate.m */,
 				EFCE563219FD0F370051C50D /* Images.xcassets */,
@@ -266,6 +276,7 @@
 				TargetAttributes = {
 					EFCE562119FD0F370051C50D = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 999584GN38;
 					};
 					EFCE563A19FD0F370051C50D = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -360,10 +371,12 @@
 			files = (
 				EF126A321A02337100E2CD6F /* BLCUser.m in Sources */,
 				EF48028C1A96E1DF0079F9DC /* BLCMedia.m in Sources */,
+				EFF982F81A9822CD00218699 /* BLCLikeButton.m in Sources */,
 				EF6440C81A2456D5002BDAC7 /* BLCMediaFullScreenAnimator.m in Sources */,
 				EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */,
 				EFCE562819FD0F370051C50D /* main.m in Sources */,
 				EFCE566219FD1C080051C50D /* BLCImagesTableViewController.m in Sources */,
+				EFF982F51A981DE700218699 /* BLCCircleSpinnerView.m in Sources */,
 				EF126A381A023A0C00E2CD6F /* BLCComment.m in Sources */,
 				EF6440C51A236246002BDAC7 /* BLCMediaFullScreenViewController.m in Sources */,
 				EF126A3E1A04D4CE00E2CD6F /* BLCMediaTableViewCell.m in Sources */,
@@ -474,9 +487,12 @@
 			baseConfigurationReference = 345B09D433F8DA2190B9D189 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Blocstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -485,9 +501,12 @@
 			baseConfigurationReference = F2A767387D5CCEBE0AD10D03 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Blocstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
