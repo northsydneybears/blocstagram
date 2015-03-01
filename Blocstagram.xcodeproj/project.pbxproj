@@ -19,6 +19,8 @@
 		EFA034AA1AA0693400B221E3 /* BLCCropBox.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA034A91AA0693400B221E3 /* BLCCropBox.m */; };
 		EFA034AD1AA06D2E00B221E3 /* BLCCropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA034AC1AA06D2E00B221E3 /* BLCCropImageViewController.m */; };
 		EFA034B01AA0783B00B221E3 /* BLCImageLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA034AF1AA0783B00B221E3 /* BLCImageLibraryViewController.m */; };
+		EFA034B31AA134C600B221E3 /* BLCPostToInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA034B21AA134C600B221E3 /* BLCPostToInstagramViewController.m */; };
+		EFA034B91AA2F07800B221E3 /* BLCFiltersCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA034B81AA2F07800B221E3 /* BLCFiltersCollectionViewCell.m */; };
 		EFCE562819FD0F370051C50D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562719FD0F370051C50D /* main.m */; };
 		EFCE562B19FD0F370051C50D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCE562A19FD0F370051C50D /* AppDelegate.m */; };
 		EFCE563319FD0F370051C50D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFCE563219FD0F370051C50D /* Images.xcassets */; };
@@ -77,6 +79,10 @@
 		EFA034AC1AA06D2E00B221E3 /* BLCCropImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCCropImageViewController.m; sourceTree = "<group>"; };
 		EFA034AE1AA0783B00B221E3 /* BLCImageLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCImageLibraryViewController.h; sourceTree = "<group>"; };
 		EFA034AF1AA0783B00B221E3 /* BLCImageLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCImageLibraryViewController.m; sourceTree = "<group>"; };
+		EFA034B11AA134C600B221E3 /* BLCPostToInstagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCPostToInstagramViewController.h; sourceTree = "<group>"; };
+		EFA034B21AA134C600B221E3 /* BLCPostToInstagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCPostToInstagramViewController.m; sourceTree = "<group>"; };
+		EFA034B71AA2F07800B221E3 /* BLCFiltersCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCFiltersCollectionViewCell.h; sourceTree = "<group>"; };
+		EFA034B81AA2F07800B221E3 /* BLCFiltersCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCFiltersCollectionViewCell.m; sourceTree = "<group>"; };
 		EFCE562219FD0F370051C50D /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFCE562619FD0F370051C50D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFCE562719FD0F370051C50D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -206,6 +212,10 @@
 				EFA034AC1AA06D2E00B221E3 /* BLCCropImageViewController.m */,
 				EFA034AE1AA0783B00B221E3 /* BLCImageLibraryViewController.h */,
 				EFA034AF1AA0783B00B221E3 /* BLCImageLibraryViewController.m */,
+				EFA034B11AA134C600B221E3 /* BLCPostToInstagramViewController.h */,
+				EFA034B21AA134C600B221E3 /* BLCPostToInstagramViewController.m */,
+				EFA034B71AA2F07800B221E3 /* BLCFiltersCollectionViewCell.h */,
+				EFA034B81AA2F07800B221E3 /* BLCFiltersCollectionViewCell.m */,
 				EFF983021A9C7BC800218699 /* UIImage+BLCImageUtilities.h */,
 				EFF983031A9C7BC800218699 /* UIImage+BLCImageUtilities.m */,
 				EFCE562919FD0F370051C50D /* AppDelegate.h */,
@@ -404,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFA034B91AA2F07800B221E3 /* BLCFiltersCollectionViewCell.m in Sources */,
 				EFA034AD1AA06D2E00B221E3 /* BLCCropImageViewController.m in Sources */,
 				EF126A321A02337100E2CD6F /* BLCUser.m in Sources */,
 				EFF982FE1A9C6EF400218699 /* BLCCameraToolbar.m in Sources */,
@@ -423,6 +434,7 @@
 				EFF983011A9C719700218699 /* BLCCameraViewController.m in Sources */,
 				EF126A411A0A737C00E2CD6F /* BLCLoginViewController.m in Sources */,
 				EFF982FB1A9ACE0900218699 /* BLCComposeCommentView.m in Sources */,
+				EFA034B31AA134C600B221E3 /* BLCPostToInstagramViewController.m in Sources */,
 				EFF983041A9C7BC800218699 /* UIImage+BLCImageUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
