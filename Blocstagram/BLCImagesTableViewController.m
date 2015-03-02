@@ -26,6 +26,10 @@
 @property (nonatomic, readonly, getter=isDragging) BOOL dragging;
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property	(nonatomic, assign) CGFloat lastKeyboardAdjustment;
+@property (nonatomic, strong) UIPopoverController *cameraPopover;
+@property (nonatomic, strong) UIPopoverController	*sharingPopover;
+@property (readwrite, assign) BOOL isShowingLandscapeView;
+@property (nonatomic, strong) UIActivityViewController *activityVC;
 
 @end
 
@@ -68,10 +72,16 @@
 																					 selector:@selector(keyboardWillHide:)
 																							 name:UIKeyboardWillHideNotification
 																						 object:nil];
+	
+		[[NSNotificationCenter defaultCenter] addObserver:self
+																					 selector:@selector(imageDidFinish:)
+																							 name:BLCImageFinishedNotification
+																						 object:nil];
 }
 
 	//make sure the cells aren't selected when the view appears
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];
@@ -79,7 +89,7 @@
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
- 
+  [super viewWillDisappear:animated];
 }
 
 - (void) dealloc {
@@ -111,7 +121,14 @@
 	
 	if (imageVC) {
 		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
-	[self presentViewController:nav animated:YES completion:nil];
+		
+		if (isPhone) {
+			[self presentViewController:nav animated:YES completion:nil];
+		} else {
+			self.cameraPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
+			self.cameraPopover.popoverContentSize = CGSizeMake(320, 568);
+			[self.cameraPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+		}
 	}
 	return;
 }
@@ -122,7 +139,12 @@
 		
 		[nav pushViewController:postVC animated:YES];
 	} else {
-		[nav dismissViewControllerAnimated:YES completion:nil];
+		if (isPhone) {
+			[nav dismissViewControllerAnimated:YES completion:nil];
+		} else {
+			[self.cameraPopover dismissPopoverAnimated:YES];
+			self.cameraPopover = nil;
+		}
 	}
 }
 
@@ -302,15 +324,21 @@
     
     BLCMediaFullScreenViewController *fullScreenVC = [[BLCMediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
 
-    fullScreenVC.transitioningDelegate = self;
-    fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
-    
+		if (isPhone) {
+			fullScreenVC.transitioningDelegate = self;
+			fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+		} else {
+			fullScreenVC.modalPresentationStyle = UIModalPresentationFormSheet;
+		}
+	
     [self presentViewController:fullScreenVC animated:YES completion:nil];
 }
 
 - (void) cell:(BLCMediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
-    NSMutableArray *itemsToShare = [NSMutableArray array];
-    
+	
+		NSMutableArray *itemsToShare = [NSMutableArray array];
+		//self.isShowingLandscapeView = UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation);
+	
     if (cell.mediaItem.caption.length > 0) {
         [itemsToShare addObject:cell.mediaItem.caption];
     }
@@ -319,10 +347,29 @@
         [itemsToShare addObject:cell.mediaItem.image];
     }
     
-    if (itemsToShare.count > 0) {
-        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
-        [self presentViewController:activityVC animated:YES completion:nil];
-    }
+		if (itemsToShare.count > 0) {
+			UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+			//[activityVC supportedInterfaceOrientations];
+			if (self.isShowingLandscapeView == NO) {
+				if (isPhone) {
+					[self presentViewController:activityVC animated:YES completion:nil];
+				} else {
+					self.sharingPopover = [[UIPopoverController alloc] initWithContentViewController:activityVC];
+					[self.sharingPopover setPopoverContentSize:self.view.frame.size animated:YES];
+					[self.sharingPopover presentPopoverFromRect:cell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+				}
+		}
+	}
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (NSUInteger) supportedInterfaceOrientations {
+	return UIInterfaceOrientationMaskPortrait;
 }
 
 - (void) cellDidPressLikeButton:(BLCMediaTableViewCell *)cell {
@@ -430,5 +477,15 @@
 	} completion:nil];
 }
 
+#pragma mark - Popover Handling
+
+- (void) imageDidFinish:(NSNotification *)notification {
+	if (isPhone) {
+		[self dismissViewControllerAnimated:YES completion:nil];
+	} else {
+		[self.cameraPopover dismissPopoverAnimated:YES];
+		self.cameraPopover = nil;
+	}
+}
 
 @end

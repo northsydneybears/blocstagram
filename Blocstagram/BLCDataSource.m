@@ -30,6 +30,8 @@
 
 @implementation BLCDataSource
 
+NSString *const BLCImageFinishedNotification = @"BLCImageFinishedNotification";
+
 - (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler {
     
     self.thereAreNoMoreOlderMessages = NO;
@@ -376,6 +378,10 @@
 		NSLog(@"Response: %@", operation.responseString);
 		[self reloadMediaItem:mediaItem];
 	}];
+}
+
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application {
+	[[NSNotificationCenter defaultCenter] postNotificationName:BLCImageFinishedNotification object:self];
 }
 
 @end
